@@ -1,16 +1,14 @@
+/* eslint-disable import/no-unresolved */
 import ProductCard from "@/components/ui/product-card";
 import { Product } from "@/types";
 import NoResults from "@/components/ui/no-results";
 
 interface ProductListProps {
   title: string;
-  items: Product[]
+  items: Product[];
 }
 
-const ProductList: React.FC<ProductListProps> = ({
-  title,
-  items
-}) => {
+const ProductList: React.FC<ProductListProps> = ({ title, items }) => {
   return (
     <div className="space-y-4">
       <h3 className="font-bold text-3xl">{title}</h3>
@@ -21,7 +19,7 @@ const ProductList: React.FC<ProductListProps> = ({
         ))}
       </div>
     </div>
-   );
-}
- 
+  );
+};
+
 export default ProductList;
