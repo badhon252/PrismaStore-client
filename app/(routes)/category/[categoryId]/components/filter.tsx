@@ -11,7 +11,7 @@ interface FilterProps {
   data: (Size | Color)[];
   name: string;
   valueKey: string;
-};
+}
 
 const Filter: React.FC<FilterProps> = ({
   data,

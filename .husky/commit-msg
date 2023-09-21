@@ -1,0 +1,17 @@
+#!/bin/sh
+
+commit_msg_file="$1"
+commit_msg=$(head -1 "$commit_msg_file")
+
+# Validate commit message format
+valid_format_regex="^(feat|fix|chore|docs|test|style|refactor|perf|build|ci|revert)(\(.+?\))?: .{1,}$"
+if ! echo "$commit_msg" | grep -qE "$valid_format_regex"; then
+  echo "Aborting commit. Your commit message is invalid." >&2
+  exit 1
+fi
+
+# Validate commit message length
+if [ ${#commit_msg} -gt 88 ]; then
+  echo "Aborting commit. Your commit message is too long." >&2
+  exit 1
+fi

@@ -11,7 +11,7 @@ const font = Urbanist({ subsets: ["latin"] });
 
 export const metadata = {
   title: "Prisma Store",
-  description: "Store - The place for all your purchases.",
+  description: "Prisma Store - The place for all your purchases.",
 };
 
 export default function RootLayout({
