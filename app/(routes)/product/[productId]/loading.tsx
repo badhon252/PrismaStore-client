@@ -1,3 +1,4 @@
+/* eslint-disable import/no-unresolved */
 import Container from "@/components/ui/container";
 import Skeleton from "@/components/ui/skeleton";
 
@@ -21,6 +22,6 @@ const Loading = () => {
       </div>
     </Container>
   );
-}
- 
+};
+
 export default Loading;

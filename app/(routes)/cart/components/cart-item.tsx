@@ -1,12 +1,11 @@
 /* eslint-disable import/no-unresolved */
 import Image from "next/image";
-import { toast } from "react-hot-toast";
-import { X } from "lucide-react";
-
 import IconButton from "@/components/ui/icon-button";
 import Currency from "@/components/ui/currency";
 import useCart from "@/hooks/use-cart";
 import { Product } from "@/types";
+import QuantityControl from "@/components/quantity-control";
+import { X } from "lucide-react";
 
 interface CartItemProps {
   data: Product;
@@ -17,6 +16,11 @@ const CartItem: React.FC<CartItemProps> = ({ data }) => {
 
   const onRemove = () => {
     cart.removeItem(data.id);
+  };
+
+  // Update this line in your CartItem component
+  const handleQuantityChange = (newQuantity: number) => {
+    cart.updateQuantity(data.id, newQuantity); // Update to use updateQuantity
   };
 
   return (
@@ -45,6 +49,11 @@ const CartItem: React.FC<CartItemProps> = ({ data }) => {
             </p>
           </div>
           <Currency value={data.price} />
+
+          <QuantityControl
+            initialQuantity={data.quantity} // Set the initial quantity from the cart
+            onQuantityChange={handleQuantityChange}
+          />
         </div>
       </div>
     </li>

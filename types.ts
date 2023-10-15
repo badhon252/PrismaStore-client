@@ -3,7 +3,9 @@ export interface Product {
   category: Category;
   name: string;
   price: string;
+  quantity: number;
   isFeatured: boolean;
+  isArchived: boolean;
   size: Size;
   color: Color;
   images: Image[];
