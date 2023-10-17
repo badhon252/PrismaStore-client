@@ -1,4 +1,4 @@
-/* eslint-disable import/no-unresolved */
+// eslint-disable-next-line import/no-unresolved
 import { Category } from "@/types";
 
 const URL = `${process.env.NEXT_PUBLIC_API_URL}/categories`;
