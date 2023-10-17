@@ -14,8 +14,6 @@
 
 # production
 /build
-.env
-.history
 
 # misc
 .DS_Store
@@ -31,6 +29,8 @@ yarn-error.log*
 .env*.local
 .env
 .history
+/package-lock.json
+
 
 # vercel
 .vercel
