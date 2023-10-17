@@ -21,19 +21,23 @@ const QuantityControl: React.FC<QuantityControlProps> = ({
     [onQuantityChange],
   );
 
+  const handleQuantityChange = useCallback(
+    (newQuantity: number) => {
+      setQuantity(newQuantity);
+      debouncedQuantityChange(newQuantity);
+    },
+    [debouncedQuantityChange],
+  );
+
   const increaseQuantity = useCallback(() => {
-    const newQuantity = quantity + 1;
-    setQuantity(newQuantity);
-    debouncedQuantityChange(newQuantity);
-  }, [quantity, debouncedQuantityChange]);
+    handleQuantityChange(quantity + 1);
+  }, [quantity, handleQuantityChange]);
 
   const decreaseQuantity = useCallback(() => {
     if (quantity > 1) {
-      const newQuantity = quantity - 1;
-      setQuantity(newQuantity);
-      debouncedQuantityChange(newQuantity);
+      handleQuantityChange(quantity - 1);
     }
-  }, [quantity, debouncedQuantityChange]);
+  }, [quantity, handleQuantityChange]);
 
   const buttonVariants: Variants = {
     initial: { scale: 1 },
