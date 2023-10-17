@@ -1,6 +1,6 @@
 "use client";
 /* eslint-disable import/no-unresolved */
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useSearchParams } from "next/navigation";
 import Button from "@/components/ui/button";
 import Currency from "@/components/ui/currency";
@@ -12,15 +12,21 @@ const Summary = () => {
   const searchParams = useSearchParams();
   const items = useCart((state) => state.items);
   const removeAll = useCart((state) => state.removeAll);
+  const toastShownRef = useRef(false);
 
   useEffect(() => {
-    if (searchParams.get("success")) {
+    const successParam = searchParams.get("success");
+    const canceledParam = searchParams.get("canceled");
+
+    if (successParam && !toastShownRef.current) {
       toast.success("Payment completed.");
       removeAll();
+      toastShownRef.current = true;
     }
 
-    if (searchParams.get("canceled")) {
+    if (canceledParam && !toastShownRef.current) {
       toast.error("Something went wrong!");
+      toastShownRef.current = true;
     }
   }, [searchParams, removeAll]);
 

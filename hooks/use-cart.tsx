@@ -22,14 +22,8 @@ const useCart = create(
         const existingItem = currentItems.find((item) => item.id === data.id);
 
         if (existingItem) {
-          // Item already exists, update the quantity
-          const updatedItems = currentItems.map((item) =>
-            item.id === data.id
-              ? { ...item, quantity: item.quantity + 1 }
-              : item,
-          );
-          set({ items: updatedItems });
-          toast.success("Item quantity updated in cart.");
+          // Item already exists, show a toast to update the quantity
+          toast.success("Go to cart to update quantity!");
         } else {
           // Item does not exist, add it to the cart
           set({ items: [...currentItems, { ...data, quantity: 1 }] });
