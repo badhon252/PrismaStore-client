@@ -1,40 +1,51 @@
-/* eslint-disable import/no-unresolved */
 "use client";
-
-import axios from "axios";
-import { useEffect } from "react";
+/* eslint-disable import/no-unresolved */
+import { useEffect, useRef } from "react";
 import { useSearchParams } from "next/navigation";
-
 import Button from "@/components/ui/button";
 import Currency from "@/components/ui/currency";
 import useCart from "@/hooks/use-cart";
 import { toast } from "react-hot-toast";
+import axios from "axios";
 
 const Summary = () => {
   const searchParams = useSearchParams();
   const items = useCart((state) => state.items);
   const removeAll = useCart((state) => state.removeAll);
+  const toastShownRef = useRef(false);
 
   useEffect(() => {
-    if (searchParams.get("success")) {
+    const successParam = searchParams.get("success");
+    const canceledParam = searchParams.get("canceled");
+
+    if (successParam && !toastShownRef.current) {
       toast.success("Payment completed.");
       removeAll();
+      toastShownRef.current = true;
     }
 
-    if (searchParams.get("canceled")) {
-      toast.error("Something went wrong.");
+    if (canceledParam && !toastShownRef.current) {
+      toast.error("Something went wrong!");
+      toastShownRef.current = true;
     }
   }, [searchParams, removeAll]);
 
-  const totalPrice = items.reduce((total, item) => {
-    return total + Number(item.price);
-  }, 0);
+  //? Calculate total quantity and total price and update the remaining quantities
+  const { totalQuantity, totalPrice } = items.reduce(
+    (acc, item) => {
+      acc.totalQuantity += item.quantity;
+      acc.totalPrice += Number(item.price) * Number(item.quantity);
+      return acc;
+    },
+    { totalQuantity: 0, totalPrice: 0 },
+  );
 
   const onCheckout = async () => {
     const response = await axios.post(
       `${process.env.NEXT_PUBLIC_API_URL}/checkout`,
       {
         productIds: items.map((item) => item.id),
+        quantities: items.map((item) => item.quantity), // Send quantities to the server
       },
     );
 
@@ -48,6 +59,11 @@ const Summary = () => {
         <div className="flex items-center justify-between border-t border-gray-200 pt-4">
           <div className="text-base font-medium text-gray-900">Order total</div>
           <Currency value={totalPrice} />
+          <div className="">
+            <span className="text-sm font-medium text-gray-500">
+              {totalQuantity} items
+            </span>
+          </div>
         </div>
       </div>
       <Button

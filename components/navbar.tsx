@@ -1,3 +1,4 @@
+/* eslint-disable import/no-unresolved */
 import Link from "next/link";
 
 import MainNav from "@/components/main-nav";

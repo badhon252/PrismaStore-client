@@ -1,3 +1,4 @@
+/* eslint-disable import/no-unresolved */
 import { Urbanist } from "next/font/google";
 
 import ModalProvider from "@/providers/modal-provider";

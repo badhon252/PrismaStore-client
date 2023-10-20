@@ -1,6 +1,7 @@
-import { create } from 'zustand';
+import { create } from "zustand";
 
-import { Product } from '@/types';
+// eslint-disable-next-line import/no-unresolved
+import { Product } from "@/types";
 
 interface PreviewModalStore {
   isOpen: boolean;
