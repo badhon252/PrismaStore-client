@@ -1,4 +1,5 @@
 {
+
   "name": "prismastore",
   "version": "0.1.0",
   "private": true,
@@ -60,6 +61,7 @@
   "husky": {
     "hooks": {
       "pre-commit": "npm run lint && npm test"
+
     }
   },
   "config": {
